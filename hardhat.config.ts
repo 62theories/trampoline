@@ -11,6 +11,7 @@ const mnemonicFileName =
   `${process.env.HOME}/.secret/testnet-mnemonic.txt`;
 let mnemonic = 'test '.repeat(11) + 'junk';
 if (fs.existsSync(mnemonicFileName)) {
+  console.log('mnemonic ', mnemonic)
   mnemonic = fs.readFileSync(mnemonicFileName, 'ascii');
 }
 
@@ -28,6 +29,7 @@ function getNetwork(name: string): {
   url: string;
   accounts: { mnemonic: string };
 } {
+  console.log(getNetwork1(`https://${name}.infura.io/v3/${process.env.INFURA_ID}`))
   return getNetwork1(`https://${name}.infura.io/v3/${process.env.INFURA_ID}`);
   // return getNetwork1(`wss://${name}.infura.io/ws/v3/${process.env.INFURA_ID}`)
 }
@@ -43,6 +45,7 @@ const config: HardhatUserConfig = {
   networks: {
     goerli: getNetwork('goerli'),
     mumbai: getNetwork('polygon-mumbai'),
+    sepolia: getNetwork('sepolia')
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
